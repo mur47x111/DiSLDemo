@@ -1,0 +1,26 @@
+<project name="ProfilerTemplate" default="build" basedir=".">
+
+	<path id="profiler.classpath">
+		<fileset dir="lib" includes="*.jar" />
+	</path>
+
+	<target name="compile">
+		<mkdir dir="bin" />
+		<javac includeantruntime="false" destdir="bin" srcdir="src" debug="true" classpathref="profiler.classpath" />
+	</target>
+
+	<target name="build" depends="compile">
+		<mkdir dir="build"/>
+		<jar destfile="build/profiler.jar" basedir="bin">
+			<manifest>
+                <attribute name="DiSL-Classes" value="${instr}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="build" />
+	</target>
+
+</project>
